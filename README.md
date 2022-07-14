@@ -44,3 +44,9 @@ complex processing graph.
 #### Run using the designated Pipeline Runner
 The Pipeline Runner that you designate constructs a **workflow graph**. That graph is then executed using the appropriate
 distributed processing back-end, becoming an asynchronous "job" (or equivalent) on that back-end.
+
+## Configuring pipeline options
+### Setting PipelineOptions from command-line arguments
+Use Go flags. Flags must be parsed before beam.Init() is called.
+
+### Creating custom options
