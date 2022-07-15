@@ -50,3 +50,12 @@ distributed processing back-end, becoming an asynchronous "job" (or equivalent) 
 Use Go flags. Flags must be parsed before beam.Init() is called.
 
 ### Creating custom options
+
+## PCollection
+### Reading from an external source
+Each data source adapter has a **Read** transform;to read, you must apply that transform to the Pipeline object itself.
+
+#### PCollection characteristics
+A PCollection is owned by the specific Pipeline object for which it is created; multiple pipelines cannot share a 
+PCollection.
+
