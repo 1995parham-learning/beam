@@ -59,3 +59,35 @@ Each data source adapter has a **Read** transform;to read, you must apply that t
 A PCollection is owned by the specific Pipeline object for which it is created; multiple pipelines cannot share a 
 PCollection.
 
+# SKIPPED FOR NOW
+
+## Core Beam transforms
+### ParDo
+It's for generic parallel processing. It considers each element in the input **PCollection**, performs some processing 
+function (your code) on that element, and emits zero, one, or multiple elements to an output **PCollection**.
+
+ParDo is useful for:
+
+1. Filtering a data set
+2. Formatting or type-converting each element in a data set
+3. Extracting parts of each element in a data set
+4. Performing computations on each element in a data set
+
+When you apply a ParDo transform, you'll need to provide user code in the form of a DoFn object. DoFn is a Beam SDK 
+class that defines a distributed processing function.
+
+All DoFns should be registered using a generic register.DoFnXxY[...] function.This allows the Go SDK to infer an 
+encoding from any inputs/outputs, registers the DoFn for execution on remote runners, and optimizes the runtime 
+execution of the DoFns via reflection.
+
+# SKIPPED FOR NOW (Also the code of ParDo)
+
+## Creating cross-language transform
+To make transforms written in one language available to pipelines written in another language, Beam uses an expansion 
+service, which creates and injects the appropriate language-specific pipeline fragments into the pipeline.
+
+![](multi-language-pipelines-diagram.svg)
+
+At runtime, the Beam runner will execute both Python and Java transforms to run the pipeline.
+
+# SKIPPED FOR NOW
