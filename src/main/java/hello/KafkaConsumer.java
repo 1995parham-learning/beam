@@ -21,12 +21,11 @@ public class KafkaConsumer {
         Pipeline p = Pipeline.create(options);
 
         p.apply(KafkaIO.<Long, String>read()
-                        .withBootstrapServers("kafka:29092")
-                        .withTopic("words")
+                        .withBootstrapServers("main-kafka-bootstrap.kafka.svc.cluster.local:9094")
+                        .withTopic("dls-elahe")
                         .withKeyDeserializer(LongDeserializer.class)
                         .withValueDeserializer(StringDeserializer.class)
-
-                        .updateConsumerProperties(ImmutableMap.of("auto.offset.reset", (Object)"earliest"))
+                        .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "earliest"))
 
                         // We're writing to a file, which does not support unbounded data sources. This line makes it bounded to
                         // the first 5 records.

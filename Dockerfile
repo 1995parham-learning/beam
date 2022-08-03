@@ -1,0 +1,1 @@
+FROM apache/beam_java11_sdk
