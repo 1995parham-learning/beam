@@ -7,7 +7,7 @@
     }
   },
   "target": {
-    "koochooloo": {
+    "beam": {
       "dockerfile": "Dockerfile",
       "tags": [
         "ghcr.io/elahe-dastan/beam"
