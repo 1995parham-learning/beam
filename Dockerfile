@@ -7,4 +7,4 @@ RUN gradle shadowJar
 
 FROM apache/spark
 
-COPY --from=build /app/lib/beam-all.jar /opt/beam/beam-all.jar
+COPY --from=build /app/build/libs/beam-all.jar /opt/beam/beam-all.jar
