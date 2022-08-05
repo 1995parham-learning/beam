@@ -1,0 +1,17 @@
+{
+  "group": {
+    "default": {
+      "targets": [
+        "beam"
+      ]
+    }
+  },
+  "target": {
+    "koochooloo": {
+      "dockerfile": "Dockerfile",
+      "tags": [
+        "ghcr.io/elahe-dastan/beam"
+      ]
+    }
+  }
+}
