@@ -2,6 +2,7 @@ package hello;
 
 import com.google.common.collect.ImmutableMap;
 
+import org.apache.beam.runners.spark.io.ConsoleIO;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
@@ -67,7 +68,7 @@ public class KafkaConsumer {
                         return input.getKey() + ": " + input.getValue();
                     }
                 }))
-                .apply(TextIO.write().to("."));
+                .apply(ConsoleIO.Write.out());
 
         p.run().waitUntilFinish();
     }
