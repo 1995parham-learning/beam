@@ -108,3 +108,9 @@ service, which creates and injects the appropriate language-specific pipeline fr
 At runtime, the Beam runner will execute both Python and Java transforms to run the pipeline.
 
 > SKIPPED FOR NOW
+
+## How to run on Production?
+
+```bash
+java -jar --add-exports java.base/sun.nio.ch=ALL-UNNAMED build/libs/beam-all.jar --runner=SparkRunner --bootstrapServers=172.21.88.8:9094
+```
