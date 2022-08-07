@@ -1,6 +1,7 @@
 package hello;
 
 import com.google.common.collect.ImmutableMap;
+
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
@@ -15,6 +16,11 @@ public class KafkaConsumer {
     static final String TOKENIZER_PATTERN = "[^\\p{L}]+";
 
     public static void main(String[] args) {
+        System.out.println("Welcome to Elahe beam testing");
+        for (String arg: args) {
+          System.out.println(arg);
+        }
+
         PipelineOptions options = PipelineOptionsFactory.fromArgs().withValidation().as(PipelineOptions.class);
 
         // Create the Pipeline object with the options we defined above.
