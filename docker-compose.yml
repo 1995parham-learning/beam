@@ -40,7 +40,7 @@ services:
     image: ghcr.io/elahe-dastan/beam:latest
     command:
       - /opt/spark/bin/spark-submit
-      - --master local
+      - --master=local
       - /opt/beam/beam-all.jar
       - --runner=SparkRunner
-      - --bootstrap-server=kafka1:9092
+      - --bootstrapServers='kafka1:9092'
