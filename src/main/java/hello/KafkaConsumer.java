@@ -15,7 +15,7 @@ public class KafkaConsumer {
     static final String TOKENIZER_PATTERN = "[^\\p{L}]+";
 
     public static void main(String[] args) {
-        PipelineOptions options = PipelineOptionsFactory.create();
+        PipelineOptions options = PipelineOptionsFactory.fromArgs().withValidation().as(PipelineOptions.class);
 
         // Create the Pipeline object with the options we defined above.
         Pipeline p = Pipeline.create(options);
