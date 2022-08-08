@@ -2,8 +2,7 @@ package hello;
 
 import com.google.common.collect.ImmutableMap;
 
-import org.apache.beam.runners.direct.DirectRunner;
-//import org.apache.beam.runners.spark.io.ConsoleIO;
+import org.apache.beam.runners.spark.io.ConsoleIO;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
 import org.apache.beam.sdk.options.Default;
@@ -31,7 +30,6 @@ public class KafkaConsumer {
         }
 
         KafkaConsumerOptions options = PipelineOptionsFactory.fromArgs(args).withValidation().as(KafkaConsumerOptions.class);
-        options.setRunner(DirectRunner.class);
 
         // Create the Pipeline object with the options we defined above.
         Pipeline p = Pipeline.create(options);
