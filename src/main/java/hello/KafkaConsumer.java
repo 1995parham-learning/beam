@@ -1,29 +1,45 @@
 package hello;
 
 import com.google.common.collect.ImmutableMap;
+
+import org.apache.beam.runners.spark.io.ConsoleIO;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
+import org.apache.beam.sdk.options.Default;
+import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.*;
 import org.apache.beam.sdk.values.KV;
-import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class KafkaConsumer {
+    public interface KafkaConsumerOptions extends PipelineOptions {
+      @Description("kafka bootstrap servers")
+      @Default.String("127.0.0.1:9094")
+      String getBootstrapServers();
+
+      void setBootstrapServers(String value);
+    }
+
     static final String TOKENIZER_PATTERN = "[^\\p{L}]+";
 
     public static void main(String[] args) {
-        PipelineOptions options = PipelineOptionsFactory.create();
+        System.out.println("Welcome to Elahe beam testing");
+        for (String arg: args) {
+          System.out.println(arg);
+        }
+
+        KafkaConsumerOptions options = PipelineOptionsFactory.fromArgs(args).withValidation().as(KafkaConsumerOptions.class);
 
         // Create the Pipeline object with the options we defined above.
         Pipeline p = Pipeline.create(options);
 
-        p.apply(KafkaIO.<Long, String>read()
-                        .withBootstrapServers("main-kafka-bootstrap.kafka.svc.cluster.local:9094")
+        p.apply(KafkaIO.<String, String>read()
+                        .withBootstrapServers(options.getBootstrapServers())
                         .withTopic("dls-elahe")
-                        .withKeyDeserializer(LongDeserializer.class)
+                        .withKeyDeserializer(StringDeserializer.class)
                         .withValueDeserializer(StringDeserializer.class)
                         .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "earliest"))
 
@@ -52,7 +68,7 @@ public class KafkaConsumer {
                         return input.getKey() + ": " + input.getValue();
                     }
                 }))
-                .apply(TextIO.write().to("wordcounts"));
+                .apply(ConsoleIO.Write.out());
 
         p.run().waitUntilFinish();
     }

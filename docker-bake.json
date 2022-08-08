@@ -1,0 +1,17 @@
+{
+  "group": {
+    "default": {
+      "targets": [
+        "beam"
+      ]
+    }
+  },
+  "target": {
+    "beam": {
+      "dockerfile": "Dockerfile",
+      "tags": [
+        "ghcr.io/elahe-dastan/beam"
+      ]
+    }
+  }
+}
