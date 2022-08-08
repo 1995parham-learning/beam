@@ -1,4 +1,6 @@
-.idea# Created by https://www.toptal.com/developers/gitignore/api/java
+# Created by https://www.toptal.com/developers/gitignore/api/java
+.idea
+
 # Edit at https://www.toptal.com/developers/gitignore?templates=java
 
 ### Java ###
