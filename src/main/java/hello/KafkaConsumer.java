@@ -4,14 +4,12 @@ import com.google.common.collect.ImmutableMap;
 
 import org.apache.beam.runners.spark.io.ConsoleIO;
 import org.apache.beam.sdk.Pipeline;
-import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
 import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.*;
-import org.apache.beam.sdk.values.KV;
+import org.apache.beam.sdk.transforms.Values;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class KafkaConsumer {
@@ -46,28 +44,11 @@ public class KafkaConsumer {
                         // We're writing to a file, which does not support unbounded data sources. This line makes it bounded to
                         // the first 5 records.
                         // In reality, we would likely be writing to a data source that supports unbounded data, such as BigQuery.
-                        .withMaxNumRecords(5)
+                        // .withMaxNumRecords(5)
 
                         .withoutMetadata() // PCollection<KV<Long, String>>
                 )
-                .apply(Values.<String>create())
-                .apply("ExtractWords", ParDo.of(new DoFn<String, String>() {
-                    @ProcessElement
-                    public void processElement(ProcessContext c) {
-                        for (String word : c.element().split(TOKENIZER_PATTERN)) {
-                            if (!word.isEmpty()) {
-                                c.output(word);
-                            }
-                        }
-                    }
-                }))
-                .apply(Count.<String>perElement())
-                .apply("FormatResults", MapElements.via(new SimpleFunction<KV<String, Long>, String>() {
-                    @Override
-                    public String apply(KV<String, Long> input) {
-                        return input.getKey() + ": " + input.getValue();
-                    }
-                }))
+                .apply(Values.create())
                 .apply(ConsoleIO.Write.out());
 
         p.run().waitUntilFinish();
