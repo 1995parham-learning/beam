@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 
 import org.apache.beam.runners.spark.io.ConsoleIO;
 import org.apache.beam.sdk.Pipeline;
+import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
 import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
@@ -39,17 +40,18 @@ public class KafkaConsumer {
                         .withTopic("dls-elahe")
                         .withKeyDeserializer(StringDeserializer.class)
                         .withValueDeserializer(StringDeserializer.class)
-                        .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "earliest"))
+                        .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "latest"))
 
                         // We're writing to a file, which does not support unbounded data sources. This line makes it bounded to
                         // the first 5 records.
                         // In reality, we would likely be writing to a data source that supports unbounded data, such as BigQuery.
-                        // .withMaxNumRecords(5)
+                        .withMaxNumRecords(5)
 
-                        .withoutMetadata() // PCollection<KV<Long, String>>
+                        .withoutMetadata() // PCollection<KV<String, String>>
                 )
                 .apply(Keys.create())
-                .apply(ConsoleIO.Write.out());
+                // .apply(ConsoleIO.Write.out())
+                .apply(TextIO.write().to("elahe-dls-"));
 
         p.run().waitUntilFinish();
     }
