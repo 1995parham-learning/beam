@@ -8,7 +8,7 @@
   },
   "target": {
     "beam": {
-      "context": "./kafka-consumer-spark/",
+      "context": ".",
       "dockerfile": "kafka-consumer-spark/Dockerfile",
       "tags": [
         "ghcr.io/elahe-dastan/beam"
