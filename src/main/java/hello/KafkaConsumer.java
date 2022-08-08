@@ -9,7 +9,7 @@ import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Values;
+import org.apache.beam.sdk.transforms.Keys;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class KafkaConsumer {
@@ -48,7 +48,7 @@ public class KafkaConsumer {
 
                         .withoutMetadata() // PCollection<KV<Long, String>>
                 )
-                .apply(Values.create())
+                .apply(Keys.create())
                 .apply(ConsoleIO.Write.out());
 
         p.run().waitUntilFinish();
