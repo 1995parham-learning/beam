@@ -1,7 +1,7 @@
 FROM gradle:jdk11 as build
 
 WORKDIR /app
-COPY . .
+COPY ./kafka-consumer-spark .
 
 RUN gradle shadowJar
 
