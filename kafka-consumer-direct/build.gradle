@@ -25,7 +25,8 @@ repositories {
 
 dependencies {
   // https://mvnrepository.com/artifact/org.apache.beam/beam-runners-spark-3
-  implementation group: 'org.apache.beam', name: 'beam-runners-spark-3', version: '2.40.0'
+  // implementation group: 'org.apache.beam', name: 'beam-runners-spark-3', version: '2.40.0'
+  implementation group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.40.0'
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.40.0'
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-io-kafka', version: '2.40.0'
   implementation group: 'org.apache.kafka', name: 'kafka_2.13', version: '3.2.0'
