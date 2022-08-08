@@ -14,23 +14,29 @@ The beam abstractions work with both batch and streaming data sources. Abstracti
 
 ### Pipeline
 
-All Beam driver programs must create a **Pipeline**. When you create if the, you must also specify the execution options
+All Beam driver programs must create a **Pipeline**. When you create if the,
+you must also specify the execution options
 that tell the **Pipeline** where and how to run.
 
 ### PCollection
 
-A **PCollection represents a distributed data set that your Beam pipeline operates on**
+A PCollection represents a distributed data set that your
+Beam pipeline operates on.
 
 ### PTransform
 
-A **PTransform** represents a data processing operation, or a step, in your pipeline. Every **PTransform** takes one or
-more **PCollection** objects as input, performs a processing function that you provide on the elements of that
+A **PTransform** represents a data processing operation, or a step, in your pipeline.
+Every **PTransform** takes one or
+more **PCollection** objects as input, performs a processing function that
+you provide on the elements of that
 **PCollection**, and produces zero ot more output **PCollection** objects.
 
 ### Scope
 
-The Go SDK has an explicit scope variable used to build a **Pipeline**. A **Pipeline** can return it’s root scope with
-the **Root()** method. The scope variable is passed to **PTransform** functions to place them in the **Pipeline** that
+The Go SDK has an explicit scope variable used to build a **Pipeline**.
+A **Pipeline** can return it’s root scope with
+the **Root()** method. The scope variable is passed to **PTransform**
+functions to place them in the **Pipeline** that
 owns the **Scope**.
 
 ### I/O transforms
@@ -69,15 +75,15 @@ Use Go flags. Flags must be parsed before beam.Init() is called.
 
 ### Creating custom options
 
-### PCollection
-
 ### Reading from an external source
 
-Each data source adapter has a **Read** transform;to read, you must apply that transform to the Pipeline object itself.
+Each data source adapter has a **Read** transform;
+to read, you must apply that transform to the Pipeline object itself.
 
 #### PCollection characteristics
 
-A PCollection is owned by the specific Pipeline object for which it is created; multiple pipelines cannot share a
+A PCollection is owned by the specific Pipeline object for
+which it is created; multiple pipelines cannot share a
 PCollection.
 
 > SKIPPED FOR NOW
@@ -86,8 +92,10 @@ PCollection.
 
 ### ParDo
 
-It's for generic parallel processing. It considers each element in the input **PCollection**, performs some processing
-function (your code) on that element, and emits zero, one, or multiple elements to an output **PCollection**.
+It's for generic parallel processing.
+It considers each element in the input **PCollection**, performs some processing
+function (your code) on that element,
+and emits zero, one, or multiple elements to an output **PCollection**.
 
 ParDo is useful for:
 
@@ -96,11 +104,15 @@ ParDo is useful for:
 3. Extracting parts of each element in a data set
 4. Performing computations on each element in a data set
 
-When you apply a ParDo transform, you'll need to provide user code in the form of a DoFn object. DoFn is a Beam SDK
+When you apply a ParDo transform, you'll need to provide user
+code in the form of a DoFn object. DoFn is a Beam SDK
 class that defines a distributed processing function.
 
-All DoFns should be registered using a generic register.DoFnXxY[...] function.This allows the Go SDK to infer an
-encoding from any inputs/outputs, registers the DoFn for execution on remote runners, and optimizes the runtime
+All DoFns should be registered using a generic register.DoFnXxY[...]
+function. This allows
+the Go SDK to infer an
+encoding from any inputs/outputs,
+registers the DoFn for execution on remote runners, and optimizes the runtime
 execution of the DoFns via reflection.
 
 > SKIPPED FOR NOW (Also the code of ParDo)
@@ -122,8 +134,9 @@ Java transforms to run the pipeline.
 ## How to run on Production?
 
 ```bash
+cd ./kafka-consumer-spark/
 gradle shadowJar
 java -jar --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
-  build/libs/beam-all.jar \
+  build/libs/kafka-consumer-spark.jar \
   --runner=SparkRunner --bootstrapServers=172.21.88.8:9094
 ```
