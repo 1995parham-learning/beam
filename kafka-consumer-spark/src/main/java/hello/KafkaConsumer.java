@@ -50,31 +50,8 @@ public class KafkaConsumer {
 
                         .withoutMetadata() // PCollection<KV<Long, String>>
                 )
-<<<<<<< HEAD:kafka-consumer-direct/src/main/java/hello/KafkaConsumer.java
-                .apply(Values.<String>create())
-                .apply("ExtractWords", ParDo.of(new DoFn<String, String>() {
-                    @ProcessElement
-                    public void processElement(ProcessContext c) {
-                        for (String word : c.element().split(TOKENIZER_PATTERN)) {
-                            if (!word.isEmpty()) {
-                                c.output(word);
-                            }
-                        }
-                    }
-                }))
-                .apply(Count.<String>perElement())
-                .apply("FormatResults", MapElements.via(new SimpleFunction<KV<String, Long>, String>() {
-                    @Override
-                    public String apply(KV<String, Long> input) {
-                        return input.getKey() + ": " + input.getValue();
-                    }
-                }))
-                        .apply(TextIO.write().to("don't-use-beam"));
-//                .apply(ConsoleIO.Write.out());
-=======
                 .apply(Keys.create())
                 .apply(ConsoleIO.Write.out());
->>>>>>> 45198d6cda88c179c5efa9841835a5b88dc3c44e:kafka-consumer-spark/src/main/java/hello/KafkaConsumer.java
 
         p.run().waitUntilFinish();
     }
