@@ -9,7 +9,7 @@
   <img alt="GitHub" src="https://img.shields.io/github/license/aut-cic/internet?logo=gnu&style=for-the-badge">
 </p>
 
-## Overview
+## Overview 👀
 
 You need to first create a driver program. Your driver program defines your pipeline,
 including all of the inputs,
@@ -48,7 +48,7 @@ owns the **Scope**.
 
 ### I/O transforms
 
-## Typical Beam Driver Work Flow
+## Typical Beam Driver Work Flow 🪠
 
 ### Create a Pipeline
 
@@ -138,7 +138,7 @@ Java transforms to run the pipeline.
 
 > SKIPPED FOR NOW
 
-## Development
+## Development ⛏️
 
 For doing development first you must create gradle wrappers so language servers can help you:
 
@@ -146,7 +146,7 @@ For doing development first you must create gradle wrappers so language servers 
 gradle wrapper
 ```
 
-## How to run?
+## How to run? 🏎️
 
 In order to run with `openjdk-17` we need to use `--add-exports java.base/sun.nio.ch=ALL-UNNAMED` as a JVM option.
 For having `kafka` we need to set bootstrap servers with the `--bootstrapServers=172.21.88.8:9094` flag.
