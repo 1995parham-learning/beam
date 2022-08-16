@@ -2,6 +2,7 @@
 <h1 align="center">
   <a href="https://github.com/apache/beam/">Apache beam</a>
 </h1>
+<h6 align="center">Beam SDKs are used to create data processing pipelines</h6>
 
 <p align="center">
   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/1995parham-learning/beam/test?style=for-the-badge">
@@ -9,8 +10,6 @@
 </p>
 
 ## Overview
-
-Beam SDKs are used to create data processing pipelines.
 
 You need to first create a driver program. Your driver program defines your pipeline,
 including all of the inputs,
