@@ -17,6 +17,8 @@ import org.apache.beam.sdk.transforms.Values;
 import org.apache.beam.sdk.values.KV;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import transformations.Transform;
+
 import com.google.common.collect.ImmutableMap;
 
 public class KafkaConsumer {
@@ -59,25 +61,9 @@ public class KafkaConsumer {
 
         .withoutMetadata() // PCollection<KV<Long, String>>
     )
-        .apply(Values.<String>create())
-        .apply("ExtractWords", ParDo.of(new DoFn<String, String>() {
-          @ProcessElement
-          public void processElement(ProcessContext c) {
-            for (String word : c.element().split(TOKENIZER_PATTERN)) {
-              if (!word.isEmpty()) {
-                c.output(word);
-              }
-            }
-          }
-        }))
-        .apply(Count.<String>perElement())
-        .apply("FormatResults", MapElements.via(new SimpleFunction<KV<String, Long>, String>() {
-          @Override
-          public String apply(KV<String, Long> input) {
-            return input.getKey() + ": " + input.getValue();
-          }
-        }))
-        .apply(TextIO.write().to("don't-use-beam"));
+        .apply(Values.create())
+        .apply(new Transform())
+        .apply(TextIO.write().to("elahe-dls-"));
 
     p.run().waitUntilFinish();
   }
