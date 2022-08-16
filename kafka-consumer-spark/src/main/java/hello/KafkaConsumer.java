@@ -48,11 +48,12 @@ public class KafkaConsumer {
 
   public static void main(String[] args) {
     System.out.println("Welcome to Elahe beam testing");
-    for (String arg: args) {
+    for (String arg : args) {
       System.out.println(arg);
     }
 
-    KafkaConsumerOptions options = PipelineOptionsFactory.fromArgs(args).withValidation().as(KafkaConsumerOptions.class);
+    KafkaConsumerOptions options = PipelineOptionsFactory.fromArgs(args).withValidation()
+        .as(KafkaConsumerOptions.class);
 
     // Create the Pipeline object with the options we defined above.
     Pipeline p = Pipeline.create(options);
@@ -64,24 +65,26 @@ public class KafkaConsumer {
         .withValueDeserializer(StringDeserializer.class)
         .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "latest"))
 
-        // We're writing to a file, which does not support unbounded data sources. This line makes it bounded to
+        // We're writing to a file, which does not support unbounded data sources. This
+        // line makes it bounded to
         // the first 5 records.
-        // In reality, we would likely be writing to a data source that supports unbounded data, such as BigQuery.
+        // In reality, we would likely be writing to a data source that supports
+        // unbounded data, such as BigQuery.
         .withMaxNumRecords(5)
 
         .withoutMetadata() // PCollection<KV<String, String>>
-        )
-      .apply(Values.create())
-      .apply(ParDo.of(new DoFn<String,DriverLocation>() {
-        @DoFn.ProcessElement
-        public void processElement(ProcessContext c) {
-          Gson gson = new Gson();
-          c.output(gson.fromJson(c.element(), DriverLocation.class));
-        }
-      }))
-    .apply(ToString.elements())
-      // .apply(ConsoleIO.Write.out())
-      .apply(TextIO.write().to("elahe-dls-"));
+    )
+        .apply(Values.create())
+        .apply(ParDo.of(new DoFn<String, DriverLocation>() {
+          @DoFn.ProcessElement
+          public void processElement(ProcessContext c) {
+            Gson gson = new Gson();
+            c.output(gson.fromJson(c.element(), DriverLocation.class));
+          }
+        }))
+        .apply(ToString.elements())
+        // .apply(ConsoleIO.Write.out())
+        .apply(TextIO.write().to("elahe-dls-"));
 
     p.run().waitUntilFinish();
   }
