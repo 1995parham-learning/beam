@@ -145,12 +145,10 @@ In order to run with `openjdk-17` we need to use `--add-exports java.base/sun.ni
 For having `kafka` we need to set bootstrap servers with the `--bootstrapServers=172.21.88.8:9094` flag.
 
 ```bash
-cd ./kafka-consumer-spark/
-
 gradle shadowJar
 
 java -jar  \
   --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
-  build/libs/kafka-consumer-spark.jar \
+  kafka-consumer-spark/build/libs/kafka-consumer-spark.jar \
   --runner=SparkRunner --bootstrapServers=172.21.88.8:9094
 ```
