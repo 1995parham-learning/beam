@@ -60,6 +60,10 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
+gradle/
+gradlew
+gradlew.bat
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
