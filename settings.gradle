@@ -1,3 +1,4 @@
 rootProject.name = 'kafka-consumer'
 include('kafka-consumer-direct')
 include('kafka-consumer-spark')
+include('transformations')
