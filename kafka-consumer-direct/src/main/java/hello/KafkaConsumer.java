@@ -55,7 +55,7 @@ public class KafkaConsumer {
         // the first 5 records.
         // In reality, we would likely be writing to a data source that supports
         // unbounded data, such as BigQuery.
-        // .withMaxNumRecords(5)
+        .withMaxNumRecords(5)
 
         .withoutMetadata() // PCollection<KV<Long, String>>
     )
