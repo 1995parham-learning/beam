@@ -10,7 +10,7 @@
     "beam": {
       "dockerfile": "kafka-consumer-spark/Dockerfile",
       "tags": [
-        "ghcr.io/elahe-dastan/beam"
+        "ghcr.io/1995parham-learning/beam"
       ]
     }
   }
