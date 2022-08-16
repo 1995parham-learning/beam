@@ -1,7 +1,5 @@
 package hello;
 
-import java.io.Serializable;
-
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
@@ -9,14 +7,12 @@ import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.DoFn;
-import org.apache.beam.sdk.transforms.ParDo;
-import org.apache.beam.sdk.transforms.ToString;
 import org.apache.beam.sdk.transforms.Values;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import transformations.Transform;
+
 import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
 
 public class KafkaConsumer {
   public interface KafkaConsumerOptions extends PipelineOptions {
@@ -26,25 +22,6 @@ public class KafkaConsumer {
 
     void setBootstrapServers(String value);
   }
-
-  public class DriverLocation implements Serializable {
-    private long id;
-
-    public long getId() {
-      return id;
-    }
-
-    public void setId(long id) {
-      this.id = id;
-    }
-
-    @Override
-    public String toString() {
-      return String.format("DriverLocation [%d]", this.id);
-    }
-  }
-
-  static final String TOKENIZER_PATTERN = "[^\\p{L}]+";
 
   public static void main(String[] args) {
     System.out.println("Welcome to Elahe beam testing");
@@ -75,15 +52,7 @@ public class KafkaConsumer {
         .withoutMetadata() // PCollection<KV<String, String>>
     )
         .apply(Values.create())
-        .apply(ParDo.of(new DoFn<String, DriverLocation>() {
-          @DoFn.ProcessElement
-          public void processElement(ProcessContext c) {
-            Gson gson = new Gson();
-            c.output(gson.fromJson(c.element(), DriverLocation.class));
-          }
-        }))
-        .apply(ToString.elements())
-        // .apply(ConsoleIO.Write.out())
+        .apply(new Transform())
         .apply(TextIO.write().to("elahe-dls-"));
 
     p.run().waitUntilFinish();
