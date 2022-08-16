@@ -8,7 +8,7 @@
   },
   "target": {
     "beam": {
-      "dockerfile": "kafka-consumer-spark/Dockerfile",
+      "dockerfile": "Dockerfile",
       "tags": [
         "ghcr.io/1995parham-learning/beam"
       ]
