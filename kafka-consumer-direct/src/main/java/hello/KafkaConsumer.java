@@ -8,13 +8,7 @@ import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Count;
-import org.apache.beam.sdk.transforms.DoFn;
-import org.apache.beam.sdk.transforms.MapElements;
-import org.apache.beam.sdk.transforms.ParDo;
-import org.apache.beam.sdk.transforms.SimpleFunction;
 import org.apache.beam.sdk.transforms.Values;
-import org.apache.beam.sdk.values.KV;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import transformations.Transform;
@@ -29,8 +23,6 @@ public class KafkaConsumer {
 
     void setBootstrapServers(String value);
   }
-
-  static final String TOKENIZER_PATTERN = "[^\\p{L}]+";
 
   public static void main(String[] args) {
     System.out.println("Welcome to Elahe beam testing");
