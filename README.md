@@ -5,6 +5,7 @@
 
 <p align="center">
   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/1995parham-learning/beam/test?style=for-the-badge">
+  <img alt="GitHub" src="https://img.shields.io/github/license/aut-cic/internet?logo=gnu&style=for-the-badge">
 </p>
 
 ## Overview
@@ -138,12 +139,18 @@ Java transforms to run the pipeline.
 
 > SKIPPED FOR NOW
 
-## How to run on Production?
+## How to run?
+
+In order to run with `openjdk-17` we need to use `--add-exports java.base/sun.nio.ch=ALL-UNNAMED` as a JVM option.
+For having `kafka` we need to set bootstrap servers with the `--bootstrapServers=172.21.88.8:9094` flag.
 
 ```bash
 cd ./kafka-consumer-spark/
+
 gradle shadowJar
-java -jar --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
+
+java -jar  \
+  --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
   build/libs/kafka-consumer-spark.jar \
   --runner=SparkRunner --bootstrapServers=172.21.88.8:9094
 ```
