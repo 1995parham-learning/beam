@@ -10,7 +10,7 @@ import org.apache.beam.sdk.testing.TestPipeline;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.values.PCollection;
 
-public class LibraryTest {
+public class TransformationsTest {
   @Test
   public void dlsParsing() {
     List<String> dls = List.of(

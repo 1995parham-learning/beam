@@ -8,7 +8,8 @@ repositories {
 
 dependencies {
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.40.0'
-  implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.1'
+  // https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-extensions-json-jackson
+  implementation group: 'org.apache.beam', name: 'beam-sdks-java-extensions-json-jackson', version: '2.40.0'
 }
 
 testing {
