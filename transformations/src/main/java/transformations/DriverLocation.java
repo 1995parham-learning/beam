@@ -3,8 +3,11 @@ package transformations;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class DriverLocation implements Serializable {
   private long id;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'")
   private Instant timestamp;
   private double lat;
   private double lng;
@@ -13,7 +16,17 @@ public class DriverLocation implements Serializable {
   private String serviceType;
   private String status;
   private int speed;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
   private Instant deviceTimestamp;
+  private String channel;
+
+  public String getChannel() {
+    return channel;
+  }
+
+  public void setChannel(String channel) {
+    this.channel = channel;
+  }
 
   public long getId() {
     return id;
