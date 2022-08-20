@@ -9,9 +9,6 @@ repositories {
 dependencies {
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.40.0'
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-extensions-json-jackson', version: '2.40.0'
-  implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.0'
-  implementation group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.13.0'
-  implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.0'
 }
 
 testing {
