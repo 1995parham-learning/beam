@@ -1,14 +1,13 @@
 package transformations;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class DriverLocation implements Serializable {
   private long id;
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'")
-  private Instant timestamp;
+  private String timestamp;
   private double lat;
   private double lng;
   private int bearing;
@@ -16,8 +15,7 @@ public class DriverLocation implements Serializable {
   private String serviceType;
   private String status;
   private int speed;
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-  private Instant deviceTimestamp;
+  private String deviceTimestamp;
   private String channel;
 
   public String getChannel() {
@@ -41,11 +39,11 @@ public class DriverLocation implements Serializable {
     return String.format("DriverLocation [%d]", this.id);
   }
 
-  public Instant getTimestamp() {
+  public String getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(Instant timestamp) {
+  public void setTimestamp(String timestamp) {
     this.timestamp = timestamp;
   }
 
@@ -105,11 +103,11 @@ public class DriverLocation implements Serializable {
     this.speed = speed;
   }
 
-  public Instant getDeviceTimestamp() {
+  public String getDeviceTimestamp() {
     return deviceTimestamp;
   }
 
-  public void setDeviceTimestamp(Instant deviceTimestamp) {
+  public void setDeviceTimestamp(String deviceTimestamp) {
     this.deviceTimestamp = deviceTimestamp;
   }
 }

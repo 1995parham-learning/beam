@@ -20,7 +20,7 @@ public class TransformationsTest {
 
     Pipeline p = TestPipeline.create();
 
-    PCollection<String> output = p.apply(Create.of(dls)).apply(new Transform());
+    PCollection<String> output = p.apply(Create.of(dls)).apply(Transform.on());
 
     PAssert.that(output).containsInAnyOrder(
         "DriverLocation [1378]",

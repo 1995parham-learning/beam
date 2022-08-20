@@ -52,7 +52,7 @@ public class KafkaConsumer {
         .withoutMetadata() // PCollection<KV<String, String>>
     )
         .apply(Values.create())
-        .apply(new Transform())
+        .apply(Transform.on())
         .apply(TextIO.write().to("elahe-dls-"));
 
     p.run().waitUntilFinish();

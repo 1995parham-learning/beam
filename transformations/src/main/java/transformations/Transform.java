@@ -1,9 +1,5 @@
 package transformations;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
 import org.apache.beam.sdk.coders.SerializableCoder;
 import org.apache.beam.sdk.extensions.jackson.ParseJsons;
 import org.apache.beam.sdk.values.PCollection;
@@ -19,22 +15,24 @@ import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.ToString;
 
 public class Transform extends PTransform<PCollection<String>, PCollection<String>> {
+  private transient static final ObjectMapper mapper = JsonMapper.builder()
+      .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+      .build();
+
+  private static final ParseJsons<DriverLocation> pj = ParseJsons.of(DriverLocation.class).withMapper(mapper);
+
+  public static Transform on() {
+    return new Transform();
+  }
+
+  private Transform() {
+    super();
+  }
 
   @Override
   public PCollection<String> expand(PCollection<String> input) {
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'");
-    df.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-    ObjectMapper mapper = JsonMapper.builder()
-        .addModule(new ParameterNamesModule())
-        .addModule(new Jdk8Module())
-        .addModule(new JavaTimeModule())
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
-        .defaultDateFormat(df)
-        .build();
-
     return input
-        .apply(ParseJsons.of(DriverLocation.class).withMapper(mapper))
+        .apply(pj)
         .setCoder(SerializableCoder.of(DriverLocation.class))
         .apply(ToString.elements());
   }

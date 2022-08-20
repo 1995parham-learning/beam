@@ -38,13 +38,13 @@ public class KafkaConsumer {
     Pipeline p = Pipeline.create(options);
 
     p.apply(KafkaIO.<String, String>read()
-                    .withBootstrapServers(options.getBootstrapServers())
-                    .withTopic("dls-elahe")
-                    .withKeyDeserializer(StringDeserializer.class)
-                    .withValueDeserializer(StringDeserializer.class)
-                    .withConsumerConfigUpdates(ImmutableMap.of("request.timeout.ms",50000))
-                    .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "latest"))
-                    .withConsumerConfigUpdates(ImmutableMap.of("group.id", (Object) "test-dls"))
+        .withBootstrapServers(options.getBootstrapServers())
+        .withTopic("dls-elahe")
+        .withKeyDeserializer(StringDeserializer.class)
+        .withValueDeserializer(StringDeserializer.class)
+        .withConsumerConfigUpdates(ImmutableMap.of("request.timeout.ms", 50000))
+        .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "latest"))
+        .withConsumerConfigUpdates(ImmutableMap.of("group.id", (Object) "test-dls"))
 
         // We're writing to a file, which does not support unbounded data sources. This
         // line makes it bounded to
@@ -56,7 +56,7 @@ public class KafkaConsumer {
         .withoutMetadata() // PCollection<KV<Long, String>>
     )
         .apply(Values.create())
-        .apply(new Transform())
+        .apply(Transform.on())
         .apply(TextIO.write().to("elahe-dls-"));
 
     p.run().waitUntilFinish();
