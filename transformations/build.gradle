@@ -10,6 +10,8 @@ dependencies {
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.40.0'
   // https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-extensions-json-jackson
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-extensions-json-jackson', version: '2.40.0'
+  // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+  implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.3'
 }
 
 testing {

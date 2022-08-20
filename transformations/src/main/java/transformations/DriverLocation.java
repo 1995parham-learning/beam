@@ -8,12 +8,12 @@ public class DriverLocation implements Serializable {
   private Instant timestamp;
   private double lat;
   private double lng;
-  private double bearing;
-  private double accuracy;
-  private double serviceType;
-  private double status;
-  private double speed;
-  private double deviceTimestamp;
+  private int bearing;
+  private int accuracy;
+  private String serviceType;
+  private String status;
+  private int speed;
+  private Instant deviceTimestamp;
 
   public long getId() {
     return id;
@@ -56,7 +56,7 @@ public class DriverLocation implements Serializable {
     return bearing;
   }
 
-  public void setBearing(double bearing) {
+  public void setBearing(int bearing) {
     this.bearing = bearing;
   }
 
@@ -64,23 +64,23 @@ public class DriverLocation implements Serializable {
     return accuracy;
   }
 
-  public void setAccuracy(double accuracy) {
+  public void setAccuracy(int accuracy) {
     this.accuracy = accuracy;
   }
 
-  public double getServiceType() {
+  public String getServiceType() {
     return serviceType;
   }
 
-  public void setServiceType(double serviceType) {
+  public void setServiceType(String serviceType) {
     this.serviceType = serviceType;
   }
 
-  public double getStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(double status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 
@@ -88,15 +88,15 @@ public class DriverLocation implements Serializable {
     return speed;
   }
 
-  public void setSpeed(double speed) {
+  public void setSpeed(int speed) {
     this.speed = speed;
   }
 
-  public double getDeviceTimestamp() {
+  public Instant getDeviceTimestamp() {
     return deviceTimestamp;
   }
 
-  public void setDeviceTimestamp(double deviceTimestamp) {
+  public void setDeviceTimestamp(Instant deviceTimestamp) {
     this.deviceTimestamp = deviceTimestamp;
   }
 }
