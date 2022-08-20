@@ -1,0 +1,38 @@
+---
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: beam-kafka-example
+spec:
+  type: Java
+  mode: cluster
+  image: "ghcr.io/1995parham-learning/beam:latest"
+  imagePullPolicy: Always
+  mainClass: 'hello.KafkaConsumer'
+  mainApplicationFile: "local:///opt/beam/spark-all.jar"
+  sparkVersion: "3.1.1"
+  timeToLiveSeconds: 900
+  restartPolicy:
+    type: Never
+  sparkConf: {}
+  arguments:
+    - --runner=SparkRunner
+    - --bootstrapServers=172.21.88.8:9094
+
+  driver:
+    coreLimit: "1000m"
+    memoryOverhead: "500m"
+    cores: 1
+    memory: "4000m"
+    labels:
+      version: 3.1.1
+    serviceAccount: spark
+
+  executor:
+    instances: 5
+    cores: 9
+    coreLimit: "3000m"
+    memory: "7000m"
+    memoryOverhead: "1000m"
+    labels:
+      version: 3.1.1
