@@ -43,6 +43,7 @@ public class KafkaConsumer {
         .withKeyDeserializer(StringDeserializer.class)
         .withValueDeserializer(StringDeserializer.class)
         .withConsumerConfigUpdates(ImmutableMap.of("auto.offset.reset", (Object) "latest"))
+        .withConsumerConfigUpdates(ImmutableMap.of("group.id", (Object) "test-dls"))
 
         // We're writing to a file, which does not support unbounded data sources. This
         // line makes it bounded to
