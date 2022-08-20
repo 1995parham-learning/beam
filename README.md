@@ -154,8 +154,17 @@ For having `kafka` we need to set bootstrap servers with the `--bootstrapServers
 ```bash
 gradle shadowJar
 
+# run above spark runner
+
 java -jar  \
   --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
   kafka-consumer-spark/build/libs/kafka-consumer-spark.jar \
   --runner=SparkRunner --bootstrapServers=172.21.88.8:9094
+
+# run above direct runner
+
+java -jar  \
+  --add-exports java.base/sun.nio.ch=ALL-UNNAMED \
+  kafka-consumer-direct/build/libs/kafka-consumer-direct-all.jar \
+  --runner=DirectRunner --bootstrapServers=172.21.88.8:9094
 ```
