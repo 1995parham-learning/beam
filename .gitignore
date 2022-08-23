@@ -134,4 +134,6 @@ local.properties
 # Spring Boot Tooling
 .sts4-cache/
 
+elahe-dls-*
+
 # End of https://www.toptal.com/developers/gitignore/api/eclipse

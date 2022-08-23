@@ -53,7 +53,7 @@ public class KafkaConsumer {
     )
         .apply(Values.create())
         .apply(Transform.on())
-        .apply(TextIO.write().to("elahe-dls-"));
+        .apply(TextIO.write().to("elahe-dls-spark"));
 
     p.run().waitUntilFinish();
   }
