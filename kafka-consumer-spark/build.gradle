@@ -27,7 +27,7 @@ dependencies {
   implementation group: 'org.apache.beam', name: 'beam-runners-spark', version: '2.45.0'
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.43.0'
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-io-kafka', version: '2.46.0'
-  implementation group: 'org.apache.kafka', name: 'kafka_2.12', version: '3.3.1'
+  implementation group: 'org.apache.kafka', name: 'kafka_2.12', version: '3.4.0'
   implementation group: 'com.google.common', name: 'google-collect', version: '1.0'
   implementation group: 'org.apache.spark', name: 'spark-core_2.12', version: '3.3.2'
   implementation group: 'org.apache.spark', name: 'spark-streaming_2.12', version: '3.3.2'
