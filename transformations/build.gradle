@@ -9,7 +9,7 @@ repositories {
 dependencies {
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.46.0'
   implementation group: 'org.apache.beam', name: 'beam-sdks-java-extensions-json-jackson', version: '2.46.0'
-  testImplementation group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.46.0'
+  testImplementation group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.47.0'
   testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
 }
 
