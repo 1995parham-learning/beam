@@ -9,29 +9,40 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.gradleup.shadow' version '9.6.1'
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    // beam-sdks-java-io-kafka pulls io.confluent:kafka-avro-serializer and
+    // kafka-schema-registry-client, which Confluent publishes only here.
     maven {
-      url 'https://maven.repository.redhat.com/earlyaccess/all/'
-    }
-    maven {
-      url 'https://repo.fusesource.com/nexus/content/repositories/releases-3rd-party/'
+      url 'https://packages.confluent.io/maven/'
     }
 }
 
+// Kafka 3.9 moved to the maintained at.yawk.lz4 fork while Spark 3.5 still
+// pulls org.lz4. Both publish the same net.jpountz.lz4 classes under the same
+// capability, so Gradle refuses to choose; take the newer fork.
+configurations.all {
+  resolutionStrategy.capabilitiesResolution.withCapability('org.lz4:lz4-java') {
+    def fork = candidates.find { it.id.group == 'at.yawk.lz4' }
+    if (fork != null) {
+      select(fork)
+    }
+  }
+}
+
 dependencies {
-  implementation group: 'org.apache.beam', name: 'beam-runners-spark', version: '2.45.0'
-  implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.48.0'
-  implementation group: 'org.apache.beam', name: 'beam-sdks-java-io-kafka', version: '2.46.0'
-  implementation group: 'org.apache.kafka', name: 'kafka_2.12', version: '3.5.0'
-  implementation group: 'com.google.common', name: 'google-collect', version: '1.0'
-  implementation group: 'org.apache.spark', name: 'spark-core_2.12', version: '3.4.0'
-  implementation group: 'org.apache.spark', name: 'spark-streaming_2.12', version: '3.3.2'
-  implementation group: 'org.apache.spark', name: 'spark-sql_2.12', version: '3.4.0'
+  implementation group: 'org.apache.beam', name: 'beam-runners-spark-3', version: '2.76.0'
+  implementation group: 'org.apache.beam', name: 'beam-sdks-java-core', version: '2.76.0'
+  implementation group: 'org.apache.beam', name: 'beam-sdks-java-io-kafka', version: '2.76.0'
+  implementation group: 'org.apache.kafka', name: 'kafka_2.12', version: '3.9.2'
+  implementation group: 'com.google.guava', name: 'guava', version: '33.7.1-jre'
+  implementation group: 'org.apache.spark', name: 'spark-core_2.12', version: '3.5.9'
+  implementation group: 'org.apache.spark', name: 'spark-streaming_2.12', version: '3.5.9'
+  implementation group: 'org.apache.spark', name: 'spark-sql_2.12', version: '3.5.9'
   implementation project(':transformations')
 }
 
